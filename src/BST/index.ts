@@ -14,19 +14,15 @@ class TreeNode {
     this.right = null;
   }
 }
-/**10
-  9
-6  12
-
-   9
- 10 12
-6
-*/
 
 export default class BST {
   root: NodeType | null;
   constructor() {
     this.root = null;
+  }
+
+  public show() {
+    return this;
   }
   public insert(value: number) {
     if (this.root === null) {
@@ -50,24 +46,34 @@ export default class BST {
       }
     }
   }
+
+  private findValueEqualNode(
+    currNode: NodeType,
+    value: number,
+    parentNode?: NodeType,
+    leafDir?: 'left' | 'right'
+  ):
+    | { currNode: NodeType; parentNode?: NodeType; leafDir?: 'left' | 'right' }
+    | undefined {
+    if (value === currNode.value) {
+      return { currNode, parentNode, leafDir };
+    } else if (value > currNode.value) {
+      if (!currNode.right) return;
+      return this.findValueEqualNode(currNode.right, value, currNode, 'right');
+    } else if (value < currNode.value) {
+      if (!currNode.left) return;
+      return this.findValueEqualNode(currNode.left, value, currNode, 'left');
+    }
+  }
   public lookup(value: number) {
     if (!this.root) return;
     let currentNode = this.root;
-    const checkNode = (
-      currNode: NodeType,
-      value: number
-    ): NodeType | undefined => {
-      if (value === currNode.value) {
-        return currNode;
-      } else if (value > currNode.value) {
-        if (!currNode.right) return;
-        return checkNode(currNode.right, value);
-      } else if (value < currNode.value) {
-        if (!currNode.left) return;
-        return checkNode(currNode.left, value);
-      }
-    };
-    const result = checkNode(currentNode, value);
-    return result;
+    const findingResult = this.findValueEqualNode(currentNode, value);
+    if (!findingResult) return;
+    return findingResult.currNode;
+  }
+  private getMinNode(currentNode: TreeNode): TreeNode {
+    if (!currentNode.left) return currentNode;
+    return this.getMinNode(currentNode.left);
   }
 }

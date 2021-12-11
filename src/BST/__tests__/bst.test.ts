@@ -7,10 +7,14 @@ describe('testing binary serach tree', () => {
   tree.insert(6);
   tree.insert(20);
   tree.insert(170);
-  const res = tree.insert(15);
+  tree.insert(15);
   test('testing insert', () => {
     // Arrange
-
+    /**
+      9
+  4       20
+    6   15  170
+    */
     /**
      {
       root: {
@@ -29,6 +33,7 @@ describe('testing binary serach tree', () => {
     }
      */
     // Assert
+    const res = tree.show();
     expect(res?.root?.value).toBe(9);
     expect(res?.root?.left?.value).toBe(4);
     expect(res?.root?.left?.left?.value == undefined).toBe(true);
@@ -53,4 +58,22 @@ describe('testing binary serach tree', () => {
     const t3 = tree.lookup(999);
     expect(t3 == undefined).toBe(true);
   });
+
+  // test('testing remove', () => {
+  //   tree.remove(15);
+  //   const res1 = tree.show();
+  //   expect(res1?.root?.right?.left?.value == undefined).toBe(true);
+
+  //   tree.remove(20);
+  //   const res2 = tree.show();
+  //   expect(res2?.root?.right?.value).toBe(120);
+  //   expect(res2?.root?.right?.right == undefined).toBe(true);
+
+  //   tree.insert(2);
+  //   tree.insert(10);
+  //   tree.remove(9);
+  //   const res3 = tree.show();
+  //   expect(res3?.root?.value).toBe(4);
+  //   expect(res3?.root?.right?.right == undefined).toBe(true);
+  // });
 });
