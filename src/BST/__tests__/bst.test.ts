@@ -1,4 +1,5 @@
 import BST from '../index';
+import { traverse } from '../utils';
 
 describe('testing binary serach tree', () => {
   const tree = new BST();
@@ -59,21 +60,25 @@ describe('testing binary serach tree', () => {
     expect(t3 == undefined).toBe(true);
   });
 
-  // test('testing remove', () => {
-  //   tree.remove(15);
-  //   const res1 = tree.show();
-  //   expect(res1?.root?.right?.left?.value == undefined).toBe(true);
+  test('testing remove', () => {
+    tree.remove(15);
+    const res1 = tree.show();
+    expect(res1?.root?.right?.left?.value == undefined).toBe(true);
 
-  //   tree.remove(20);
-  //   const res2 = tree.show();
-  //   expect(res2?.root?.right?.value).toBe(120);
-  //   expect(res2?.root?.right?.right == undefined).toBe(true);
+    tree.remove(20);
+    const res2 = tree.show();
+    expect(res2?.root?.right?.value).toBe(170);
+    expect(res2?.root?.right?.right == undefined).toBe(true);
 
-  //   tree.insert(2);
-  //   tree.insert(10);
-  //   tree.remove(9);
-  //   const res3 = tree.show();
-  //   expect(res3?.root?.value).toBe(4);
-  //   expect(res3?.root?.right?.right == undefined).toBe(true);
-  // });
+    tree.insert(2);
+    tree.insert(10);
+
+    if (tree.root) console.log(traverse(tree.root));
+
+    tree.remove(9);
+    const res3 = tree.show();
+    expect(res3?.root?.value).toBe(170);
+    expect(res3?.root?.left?.value).toBe(10);
+    expect(res3?.root?.right?.value == undefined).toBe(true);
+  });
 });
